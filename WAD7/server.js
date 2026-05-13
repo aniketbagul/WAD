@@ -1,78 +1,54 @@
-// server.js
+const express = require('express')
+const mongoose = require('mongoose')
 
-const express = require("express");
-const mongoose = require("mongoose");
+const app = express()
+app.use(express.json())
 
-const app = express();
 
-app.use(express.json());
+mongoose.connect("")
+.then(() =>  console.log("mogodb is connected"))
+.catch((err) => console.log(err))
 
-/* MongoDB Connection */
 
-mongoose.connect("mongodb://127.0.0.1:27017/studentDB")
-.then(() => console.log("MongoDB Connected"))
-.catch((err) => console.log(err));
+const studentScheam = new mongoose.Schema({
 
-/* Schema */
-
-const studentSchema = new mongoose.Schema({
-
-    name: String,
-    email: String,
-    city: String
+  name : String,
+  email : String,
+  city : String
 
 });
 
-/* Model */
+const Student = new mongoose.model("Student", studentScheam )
 
-const Student = mongoose.model("Student", studentSchema);
 
-/* CREATE API */
-
-app.post("/addStudent", async (req, res) => {
-
-    const student = new Student(req.body);
-
+app.post('/addstudent', async (req,res) => {
+ 
+    const student = new Student(req.body)
     await student.save();
-
-    res.send("Student Added");
-
-});
-
-/* READ API */
-
-app.get("/getStudents", async (req, res) => {
-
-    const students = await Student.find();
-
-    res.json(students);
+    res.send("student created")
 
 });
 
-/* UPDATE API */
+app.get('/getstudent', async (req,res) => {
 
-app.put("/updateStudent/:id", async (req, res) => {
-
-    await Student.findByIdAndUpdate(req.params.id, req.body);
-
-    res.send("Student Updated");
-
+    const student = await Student.find(req.body)
+    res.send(express.json)
 });
 
-/* DELETE API */
+app.put('/updatestudent/id', async (req,res) => {
 
-app.delete("/deleteStudent/:id", async (req, res) => {
+    await Student.findByIdAndUpdate(req.params.id,req.body)
+    res.send("student is upadted")
+} )
+   
 
-    await Student.findByIdAndDelete(req.params.id);
+app.delete('/deletestudent/id', async (req,res) => {
 
-    res.send("Student Deleted");
+    await Student.findByIdAndDelete(req.params.id,req.body)
+    res.send("student is deleted")
+} )
 
-});
-
-/* Server */
-
-app.listen(3000, () => {
-
-    console.log("Server Running on Port 3000");
-
+const PORT =3000
+app.listen(PORT,() => {
+    `Server running at http://localhost:${PORT}`
 });
