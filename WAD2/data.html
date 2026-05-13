@@ -1,0 +1,62 @@
+<!-- data.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Data</title>
+
+    <style>
+
+        table{
+            border-collapse: collapse;
+            width: 60%;
+        }
+
+        th, td{
+            border:1px solid black;
+            padding:10px;
+            text-align:center;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h2>Registered Users</h2>
+
+    <table>
+
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>City</th>
+        </tr>    
+
+        <tbody id="result"></tbody>
+
+    </table>
+
+    <script>
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        let output = "";
+
+        users.forEach(function(u){
+
+            output += `
+                <tr>
+                    <td>${u.name}</td>
+                    <td>${u.email}</td>
+                    <td>${u.city}</td>
+                </tr>
+            `;
+        });
+
+        document.getElementById("result").innerHTML = output;
+
+    </script>
+
+</body>
+</html>
