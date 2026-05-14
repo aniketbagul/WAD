@@ -2,53 +2,70 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 const app = express()
+
 app.use(express.json())
 
+// MongoDB Connection
+mongoose.connect("mongodb://127.0.0.1:27017/studentDB")
 
-mongoose.connect("")
-.then(() =>  console.log("mogodb is connected"))
+.then(() => console.log("MongoDB Connected"))
 .catch((err) => console.log(err))
 
 
-const studentScheam = new mongoose.Schema({
 
-  name : String,
-  email : String,
-  city : String
+const studentSchema = new mongoose.Schema({
 
-});
+    name: String,
+    email: String,
+    city: String
 
-const Student = new mongoose.model("Student", studentScheam )
+})
+
+const Student = mongoose.model("Student", studentSchema)
 
 
-app.post('/addstudent', async (req,res) => {
- 
+app.post('/addstudent', async (req, res) => {
+
     const student = new Student(req.body)
-    await student.save();
-    res.send("student created")
 
-});
+    await student.save()
 
-app.get('/getstudent', async (req,res) => {
+    res.send("Student Created")
 
-    const student = await Student.find(req.body)
-    res.send(express.json)
-});
+})
 
-app.put('/updatestudent/id', async (req,res) => {
 
-    await Student.findByIdAndUpdate(req.params.id,req.body)
-    res.send("student is upadted")
-} )
-   
+app.get('/getstudent', async (req, res) => {
 
-app.delete('/deletestudent/id', async (req,res) => {
+    const student = await Student.find()
 
-    await Student.findByIdAndDelete(req.params.id,req.body)
-    res.send("student is deleted")
-} )
+    res.send(student)
 
-const PORT =3000
-app.listen(PORT,() => {
-    `Server running at http://localhost:${PORT}`
-});
+})
+
+
+app.put('/updatestudent/:id', async (req, res) => {
+
+    await Student.findByIdAndUpdate(req.params.id, req.body)
+
+    res.send("Student Updated")
+
+})
+
+
+app.delete('/deletestudent/:id', async (req, res) => {
+
+    await Student.findByIdAndDelete(req.params.id)
+
+    res.send("Student Deleted")
+
+})
+
+
+const PORT = 3000
+
+app.listen(PORT, () => {
+
+    console.log(`Server running at http://localhost:${PORT}`)
+
+})

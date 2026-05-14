@@ -2,14 +2,14 @@
 <html>
 <head>
 
-    <title>jQuery Mobile Website</title>
+    <title>Simple Mobile Website</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 
     <!-- jQuery Mobile CSS -->
     <link rel="stylesheet"
     href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 
     <!-- jQuery Mobile JS -->
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -19,69 +19,67 @@
 <body>
 
     <!-- Home Page -->
-
     <div data-role="page" id="home">
 
         <!-- Header -->
         <div data-role="header">
-
             <h1>My Mobile Website</h1>
-
         </div>
 
         <!-- Content -->
         <div data-role="content">
 
-            <h2>Welcome</h2>
+            <h2>Welcome Student</h2>
 
-            <p>This is a simple mobile website using jQuery Mobile.</p>
+            <p>This is a simple jQuery Mobile Website.</p>
 
             <!-- Button -->
-            <a href="#about" 
-               data-role="button">
-               Go to About Page
+            <a href="#about"
+               data-role="button"
+               data-transition="slide">
+               About Page
             </a>
 
         </div>
 
         <!-- Footer -->
         <div data-role="footer">
-
-            <h4>Home Page</h4>
-
+            <h4>Mobile Website Footer</h4>
         </div>
 
     </div>
 
-    <!-- About Page -->
 
+    <!-- About Page -->
     <div data-role="page" id="about">
 
         <!-- Header -->
         <div data-role="header">
-
             <h1>About</h1>
-
         </div>
 
         <!-- Content -->
         <div data-role="content">
 
-            <p>This page is created using jQuery Mobile.</p>
+            <h3>About This Website</h3>
 
+            <p>
+                This mobile website is created using
+                jQuery Mobile Framework.
+            </p>
 
-            <a href="#home" 
-               data-role="button">
-               Back to Home
+            <!-- Back Button -->
+            <a href="#home"
+               data-role="button"
+               data-transition="flip">
+               Go Back
             </a>
 
         </div>
 
         <!-- Footer -->
         <div data-role="footer">
-
-            <h4>About Page</h4>
-
+            <h4>Thank You</h4>
         </div>
 
     </div>
